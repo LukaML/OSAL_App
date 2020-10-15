@@ -49,7 +49,7 @@ int main(void){
     f = OSAL_Open("folder opet",  "test.txt", "r");
     char buffer[15];
     OSAL_Read(f, buffer, strlen("test test test!"), 2);
-    printf("buffer: %s\n", buffer);
+    OSAL_Printf(buffer);
     OSAL_Close(f);
     
     // primjer kreiranje foldera "brisi" u C:\Temp\folder\opet

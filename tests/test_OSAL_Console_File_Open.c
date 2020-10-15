@@ -28,7 +28,13 @@ void testOSAL_Console_File_Open_invalid_file() {
 }
 
 void testOSAL_Console_File_Open_invalid_name_of_file() {
-    char* name = "test44444444444";
+    char name[OSAL_FILE_NAME_MAX_LENGTH+1];
+    int i = 0;
+    while(OSAL_FILE_NAME_MAX_LENGTH + 1 > strlen(name))
+    {
+        name[i] = "a";
+        i++;
+    }
     CU_ASSERT_EQUAL(OSAL_ConsoleFileOpen("", name), OSAL_FAIL);
 }
 

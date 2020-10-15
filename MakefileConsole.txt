@@ -4,8 +4,10 @@ OS_TYPE=Windows
 all:OSAL.o OSALInit.o filesystem.o console.o clock.o main.o test_OSAL_APIInit.o test_OSAL_Close.o test_OSAL_Console_File_Open.o\
 test_OSAL_Create.o test_OSAL_Create_Directory.o test_OSAL_GetLocalTime.o test_OSAL_Open.o test_OSAL_Printf.o\
 test_OSAL_PrintfDIsable.o test_OSAL_PrintfEnable.o test_OSAL_Read.o test_OSAL_Remove.o test_OSAL_Remove_Directory.o\
-test_OSAL_SetLocalTime.o test_OSAL_Write.o
+test_OSAL_SetLocalTime.o test_OSAL_Write.o app.exe
 
+app.exe: main.o clock.o console.o filesystem.o OSALInit.o
+	$(CC) -o $@ $^
 
 OSAL.o: clock.o console.o filesystem.o OSALInit.o OSAL.h
 	$(CC) -c OSAL.h
@@ -71,4 +73,4 @@ test_OSAL_Write.o: tests/test_OSAL_Write.c filesystem.o OSALInit.o OSALTestHeade
 	$(CC) -c tests/test_OSAL_Write.c
 	
 clean:
-        rm -f *.o *.exe
+	rm -f *.o *.exe
