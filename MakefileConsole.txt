@@ -1,4 +1,5 @@
 CC = gcc
+OS_TYPE=Windows
 
 all:OSAL.o OSALInit.o filesystem.o console.o clock.o main.o test_OSAL_APIInit.o test_OSAL_Close.o test_OSAL_Console_File_Open.o\
 test_OSAL_Create.o test_OSAL_Create_Directory.o test_OSAL_GetLocalTime.o test_OSAL_Open.o test_OSAL_Printf.o\
@@ -9,17 +10,17 @@ test_OSAL_SetLocalTime.o test_OSAL_Write.o
 OSAL.o: clock.o console.o filesystem.o OSALInit.o OSAL.h
 	$(CC) -c OSAL.h
 
-OSALInit.o: Windows/OSALInit.c Windows/OSALInit.h
-	$(CC) -c Windows/OSALInit.c 
+OSALInit.o: $(OS_TYPE)/OSALInit.c $(OS_TYPE)/OSALInit.h
+	$(CC) -c $(OS_TYPE)/OSALInit.c 
 
-filesystem.o: Windows/filesystem.c Windows/filesystem.h
-	$(CC) -c Windows/filesystem.c 
+filesystem.o: $(OS_TYPE)/filesystem.c $(OS_TYPE)/filesystem.h
+	$(CC) -c $(OS_TYPE)/filesystem.c 
 
-console.o: Windows/console.c Windows/console.h
-	$(CC) -c Windows/console.c 
+console.o: $(OS_TYPE)/console.c $(OS_TYPE)/console.h
+	$(CC) -c $(OS_TYPE)/console.c 
 
-clock.o: Windows/clock.c Windows/clock.h
-	$(CC) -c Windows/clock.c 
+clock.o: $(OS_TYPE)/clock.c $(OS_TYPE)/clock.h
+	$(CC) -c $(OS_TYPE)/clock.c 
 
 main.o: main.c OSAL.o 
 	$(CC) -c main.c
@@ -68,3 +69,6 @@ test_OSAL_SetLocalTime.o: tests/test_OSAL_SetLocalTime.c clock.o OSALInit.o OSAL
 
 test_OSAL_Write.o: tests/test_OSAL_Write.c filesystem.o OSALInit.o OSALTestHeader.h
 	$(CC) -c tests/test_OSAL_Write.c
+	
+clean:
+        rm -f *.o *.exe
